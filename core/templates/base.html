@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{% block title %}{% endblock title %}</title>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+ 
+ <style>
+
+  {% block style %}
+  {% endblock style %}
+   </style>
+    </head>
+  <body style="max-width: 100%;overflow-x: hidden;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand font-weight-bolder" href="/">E-Commerce</a>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item ">
+                <a class="nav-link {% block home %}{% endblock home %}" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {% block about %}{% endblock about %}" aria-current="page" href="/about">About</a>
+              </li>
+            
+        </ul>
+      
+          <form class="d-flex mx-3 flex-row" style="padding-left:41%;" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary ml-2" type="submit">Search</button>
+          </form>
+          
+          {% if user.is_authenticated %}
+        
+        <div class="dropdown ml-2" style="width:150px">
+          <a class="btn btn-outline-dark dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            welcome {{user}}
+          </a>
+          <ul class="dropdown-menu px-2 ">
+            <li><a class="dropdown-item" href="/signout">Logout</a></li>
+          </ul>
+        </div>
+        <a href="/cart" class="ml-2 btn btn-light" style="height:50px"><span style="position:relative;top:-8px;left: 5px;">{{count}}</span>
+          <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:20px"></i>
+        </a>
+        {% else %}
+        <a class="btn btn-outline-info my-2 my-sm-0 ml-4"   href="/signin">LogIn</a>
+        <a class="btn btn-outline-dark  m-2 my-sm-0"  href="/signup">SignUp</a>
+      </div>
+        
+        {% endif %}
+        </div>
+      </nav>
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+         {{ message }}.
+        <button type="button" style=" position: absolute;right: 20px;" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}    
+      {% block body %}{% endblock body %}
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>

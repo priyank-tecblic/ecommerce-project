@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}HomePage{% endblock %}
+{% block style %}
+.col-md-3 {
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.col-md-3 {
+    width: 100%;
+    height: auto;
+}
+
+body .carousel-control-indicator li {
+    background-color: blue;
+}
+
+body .carousel-control-prev-icon body .carousel-control-next-icon {
+    background-color: blue;
+}
+.col-md-3 img {
+    width: 255px;
+    max-height: 255px;
+}
+.carousel-control-prev
+{
+  position:absolute;
+  right:100%;
+  left:auto;
+}
+.carousel-control-next
+{
+  position:absolute;
+  left:100%;
+  right:auto;
+}
+body .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.carousel-control-prev-icon {
+    background: black no-repeat center center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+    background: black no-repeat center center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+
+}
+body .carousel-indicators{
+bottom:0;
+}
+
+.carousel-indicators .active{
+background-color: blue;
+}
+{% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+{% block home %}active{% endblock  %}
+{% block body %}
+{% load static %}
+
+<div class="container">
+    {% for product,range,nslides in allproduct %}
+    <h1 class="text-center">{{product.0.pcategory}}</h1>
+<div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <!--Slideshow starts here -->
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active">
+      
+
+        {% for i in product%}
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="card" style="width: 18rem;">
+            <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">{{i.pname}}</h5>
+              <p class="card-text">{{i.pdesc}}</p>
+              <span class="row"  style="margin-left:2px;"><b>&#8377; {{i.price}}</b></span>
+              {% if user.is_authenticated %}
+              <a href="/addcart?id={{i.pid}}" class="btn btn-primary row my-2 bg-dark" style="margin-left:2px;">Add To Cart</a>
+              {% else %}
+              <button href="" class="btn btn-primary bg-dark row my-2" disabled style="margin-left:2px;">Add To Cart</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item">
+        {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+
+</div>
+<!-- left and right controls for the slide -->
+<a class="carousel-control-prev" href="#demo{{forloop.counter}}"  data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+</a>
+<a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+</a>
+</div>
+<br>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

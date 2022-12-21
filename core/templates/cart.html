@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block style %}
+.plus,
+.minus
+{
+    height:20px;
+    width:20px;
+}
+.span1
+{
+    position: relative;
+    font-size: 20px;
+    bottom: 12px;
+    right: 3px;
+}
+.span2
+{
+    position: relative;
+    font-size: 20px;
+    bottom: 12px;
+    right: 6px;
+}
+{% endblock  %}
+{% block body %}
+<div class="container">
+    <h2 class="text-center py-2">Your cart is Here</h2>
+    <ol class="list-group list-group-numbered">
+        {% for i in cart %}
+            <li class="list-group-item d-flex justify-content-between align-items-start my-2">
+            <div class="ms-2 me-auto">
+                {{i.product.pname}}
+
+                
+            </div>
+            <div class="mr-2">
+
+                <a href="/minus?id={{i.cid}}" class="ml-3 btn btn-secondary plus text-light" style="opacity: .75;"><span class="span1">-</span></a>
+                {{i.quantity}}
+                <a href="/plus?id={{i.cid}}" style="opacity: .75;" class="minus opacity-25 btn btn-primary text-light"><span class="span2">+</span></a>
+    
+                <span class="badge  rounded-pill ">{{i.total}} &#8377;</span>
+            </div>
+            </li>
+        {% endfor %}
+        {% if alltotal is not 0 %}
+        <li class="list-group-item d-flex justify-content-between align-items-start my-2">
+            <div class="ms-2 me-auto">
+                <h5 class="font-weight-bold">Total Price
+                </h5>
+            </div>
+            <div class="mr-2">
+
+    
+                <span class="badge  rounded-pill "><h5 class="font-weight-bolder">{{alltotal}} &#8377;</h5></span>
+            </div>
+            </li>
+            {% else %}
+        <a href="/" class="text-center py-2 text-danger">cart is empty click here for go to home
+            page</a>
+        </h3>
+        {% endif %}
+    </ol>
+    {% if alltotal is not 0 %}'
+    <div class="container my-2" style="text-align: center;">
+        <a class="btn btn-outline-primary mx-1" href="/emptycart" role="button">Empty Cart</a>
+        <a class="btn btn-outline-dark mx-1"  href="/deliveryaddress" role="button">Next</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock  %}
