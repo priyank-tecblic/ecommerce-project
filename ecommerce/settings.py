@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig'
+    'core.apps.CoreConfig',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+SITE_ID = 1
+    
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,15 +82,38 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+      'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'mydatabase',
+       'USER': 'priyank',
+       'PASSWORD': '123',
+       'HOST': 'localhost',
+       'PORT': '5432',
+   }
 }
 
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+    
+]
+# SOCIALACCOUNT_PROVIDERS = {
+               
+#                 'google':{    'SCOPE':['email'],
+#                                 'AUTH_PARAMS':{'auth_type':'reauthenticate'},
+#                                 'METHOD':'js_sdk',
+#                                 'LOCALE_FUNC':'en-US'
+#                                 }
+
+#                            }
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -123,3 +153,5 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "/"

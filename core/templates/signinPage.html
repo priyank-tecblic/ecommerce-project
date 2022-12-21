@@ -4,6 +4,7 @@
     {% endblock  %}
     <!-- Bootstrap CSS -->
     {% block body %}
+    {% load socialaccount %}
     {% load static %}
 
     <div class="container">
@@ -14,7 +15,7 @@
                         
                         <form class="myfrom text-center" style="margin-top: 58px;" action="/checkuser/" method="post">
                             {% csrf_token %}
-                            <header>Login to Account</header>
+                            <header class="text-dark">Login to Account</header>
                             <div class="form-group">
                                 <i class="fa fa-user"></i>
                                 <input type="text" class="myinput" name="uname" placeholder="Username" id="username" required>
@@ -35,13 +36,14 @@
                                 </label>
                             </div>
                             
-                            <input type="submit" class="butt" value="SIGN IN" >
-                            
+                            <input type="submit" class="butt btn-secondary" style="" value="SIGN IN" >
+                            <span class="font-weight-bold" style="position:absolute;left: 47.5%;bottom: 50px;">OR</span>            
+                            <a href="{% provider_login_url "google" %}" style="position:relative;left: 19.5%;bottom: -21px;" class="butt btn btn-lg btn-dark btn-block">Sign in with Google</a>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="myrightctn">
+                    <div class="myrightctn bg-secondary">
                         <div class="box">
                             <img src="{% static 'user.png' %}" alt="">
                         </div>
@@ -52,7 +54,6 @@
             </div>
         </div>
     </div>
-    
     <!-- Optional JavaScript -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

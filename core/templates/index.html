@@ -1,0 +1,8 @@
+{% load socialaccount %}
+{% providers_media_js %}
+<html>
+    <head>
+        <title>Google Registration</title>
+    </head>
+    <a href="{% provider_login_url "google" %}">Google connect</a>
+</html>

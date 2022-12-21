@@ -15,6 +15,14 @@ class Product(models.Model):
     def __str__(self):
         return self.pname
 
+    def delete(self, *args, **kwargs):
+        # You have to prepare what you need before delete the model
+        storage, path = self.image.storage, self.image.path
+        # Delete the model before the file
+        super(Product, self).delete(*args, **kwargs)
+        # Delete the file after the model
+        storage.delete(path)
+
 class Cart(models.Model):
     cid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

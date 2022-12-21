@@ -36,7 +36,7 @@
       
           <form class="d-flex mx-3 flex-row" style="padding-left:41%;" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-secondary ml-2" type="submit">Search</button>
+            <button class="btn btn-outline-dark ml-2" type="submit">Search</button>
           </form>
           
           {% if user.is_authenticated %}
@@ -53,7 +53,7 @@
           <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:20px"></i>
         </a>
         {% else %}
-        <a class="btn btn-outline-info my-2 my-sm-0 ml-4"   href="/signin">LogIn</a>
+        <a class="btn btn-info my-2 my-sm-0 ml-4"   href="/signin">LogIn</a>
         <a class="btn btn-outline-dark  m-2 my-sm-0"  href="/signup">SignUp</a>
       </div>
         

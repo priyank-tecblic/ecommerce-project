@@ -18,7 +18,7 @@ body{
 }
 .myrightctn{
     position: relative;
-    background-image: linear-gradient(45deg, #bb36fd,#bb36fd);
+    /* background-image: linear-gradient(45deg, #bb36fd,#bb36fd); */
     border-radius: 50px;
     height: 102%;
     padding: 25px;
@@ -40,7 +40,7 @@ body{
 }
 
 .myleftctn header{
-    color: blueviolet;
+    /* color: blueviolet; */
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -94,7 +94,6 @@ body{
 }
 
 .myleftctn .butt{
-    background: linear-gradient(45deg,#bb36fd,#bb36fd);
     color: #fff;
     width: 230px;
     border: none;
@@ -106,7 +105,7 @@ body{
 }
 
 .myleftctn .butt:hover{
-    background: linear-gradient(45deg, #c85bff,#9b00e8);
+    /* background: linear-gradient(45deg, #c85bff,#9b00e8); */
 }
 
 .myleftctn .butt:focus{
@@ -115,7 +114,7 @@ body{
 
 .myleftctn .fas{
     position: relative;
-    color: #bb36fd;
+    /* color: #bb36fd; */
     left: 36px;
 }
 
@@ -133,12 +132,12 @@ body{
 }
 
 .butt_out:hover{
-    border: 2px solid #eecbff;
+    /* border: 2px solid #eecbff; */
 
 }
 
 .butt_out:focus{
-    outline: none;
+    /* outline: none; */
 }
 
 .mycard2
