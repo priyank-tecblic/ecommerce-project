@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Product,Cart,OrderDetail,Order,DeliveryAdress
+from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from math import ceil
@@ -134,3 +134,21 @@ def placeOrder(request):
         cart.delete()
         messages.success(request, f'Your order successfully placed! your order id is {order.oid}')
         return redirect("/")
+
+def trackOrder(request):
+    if not request.user.is_authenticated:
+        count = 0
+    else:
+        count = Cart.objects.filter(user=request.user).count()
+    return render(request,'trackorder.html',{'count':count})
+
+def trackingOrder(request):
+    if not request.user.is_authenticated:
+        count = 0
+    else:
+        count = Cart.objects.filter(user=request.user).count()
+    if request.method == "GET":
+        order = Order(oid = request.GET.get("orderid"))
+        trackorder = TrackOrder.objects.filter(order = order)
+        print(trackorder)
+    return render(request,'trackorder.html',{'count':count,'trackorder':trackorder})

@@ -31,17 +31,22 @@
               <li class="nav-item ">
                 <a class="nav-link {% block about %}{% endblock about %}" aria-current="page" href="/about">About</a>
               </li>
-            
+          {% if user.is_authenticated %}
+              
+              <li class="nav-item ">
+                <a class="nav-link {% block track %}{% endblock track %}" aria-current="page" href="/trackorder">TrackOrder</a>
+              </li>
+            {% endif %}
         </ul>
       
-          <form class="d-flex mx-3 flex-row" style="padding-left:41%;" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-dark ml-2" type="submit">Search</button>
-          </form>
-          
-          {% if user.is_authenticated %}
         
-        <div class="dropdown ml-2" style="width:150px">
+        {% if user.is_authenticated %}
+        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;left:0%;padding-left:30%;" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-info ml-2" type="submit">Search</button>
+        </form>
+        
+        <div class="dropdown ml-4">
           <a class="btn btn-outline-dark dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             welcome {{user}}
           </a>
@@ -49,12 +54,18 @@
             <li><a class="dropdown-item" href="/signout">Logout</a></li>
           </ul>
         </div>
-        <a href="/cart" class="ml-2 btn btn-light" style="height:50px"><span style="position:relative;top:-8px;left: 5px;">{{count}}</span>
-          <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:20px"></i>
+        <a href="/cart" class="ml-2 btn btn-light" style="position: absolute;left: 92%;height:50px"><span style="position:relative;bottom:22px;left: 30px;">{{count}}</span>
+          <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:-2px"></i>
         </a>
         {% else %}
-        <a class="btn btn-info my-2 my-sm-0 ml-4"   href="/signin">LogIn</a>
-        <a class="btn btn-outline-dark  m-2 my-sm-0"  href="/signup">SignUp</a>
+        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;right:-10%;padding-left:30%;" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-info ml-2" type="submit">Search</button>
+        </form>
+        <div style="position:relative;right:-13%;">          
+          <a class="btn btn-outline-secondary my-2 my-sm-0 ml-4" style="border:none"  href="/signin">LogIn</a>
+          <a class="btn btn-dark  m-2 my-sm-0"  href="/signup">SignUp</a>
+        </div>
       </div>
         
         {% endif %}

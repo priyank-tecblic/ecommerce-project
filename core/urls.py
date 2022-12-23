@@ -32,5 +32,7 @@ urlpatterns = [
     path('emptycart/',views.emptyCart,name="EmptyCart"),
     path('deliveryaddress/',views.deliveryAdress,name="DeliveryAdress"),
     path('placeorder/',views.placeOrder,name="PlaceOrder"),
+    path('trackorder/',views.trackOrder,name="TrackOrder"),
+    path('trackingorder/',views.trackingOrder,name="TrackingOrder")
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

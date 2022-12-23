@@ -86,7 +86,7 @@ background-color: blue;
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title font-weight-bold">{{i.pname}}</h5>
-              <p class="card-text">{{i.pdesc}}</p>
+              <p class="card-text">{{ i.pdesc|slice:"0:25" }}...</p>
               <span class="row"  style="margin-left:2px;"><b>&#8377; {{i.price}}</b></span>
               {% if user.is_authenticated %}
               <a href="/addcart?id={{i.pid}}" class="btn btn-primary row my-2 bg-dark" style="margin-left:2px;">Add To Cart</a>

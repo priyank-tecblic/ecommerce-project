@@ -29,8 +29,6 @@
             <li class="list-group-item d-flex justify-content-between align-items-start my-2">
             <div class="ms-2 me-auto">
                 {{i.product.pname}}
-
-                
             </div>
             <div class="mr-2">
 
@@ -38,7 +36,7 @@
                 {{i.quantity}}
                 <a href="/plus?id={{i.cid}}" style="opacity: .75;" class="minus opacity-25 btn btn-primary text-light"><span class="span2">+</span></a>
     
-                <span class="badge  rounded-pill ">{{i.total}} &#8377;</span>
+                <span class="badge rounded-pill ">{{i.total}} &#8377;</span>
             </div>
             </li>
         {% endfor %}

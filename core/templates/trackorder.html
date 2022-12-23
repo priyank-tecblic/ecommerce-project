@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Track Order{% endblock  %}
+{% block track %}active{% endblock  %}
+{% block body %}
+{% load humanize %}
+<div class="container">
+    <h1 class="text-center my-4">Track Your Order Here</h1>
+    <form class="row g-3 justify-content-center" method ="get" action="/trackingorder">
+        <!-- <div class="col-auto">
+          <label for="staticEmail2" class="visually-hidden">Email</label>
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+        </div> -->
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="orderid" name="orderid" placeholder="Enter Order ID">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-secondary mb-3">Submit</button>
+        </div>
+      </form>
+      <ol class="list-group list-group-numbered mt-4">
+          {% for i in trackorder %}
+          <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start my-2">
+              <div class="ms-2 me-auto font-weight-bold">
+                  {{i.description}}            
+                </div>
+                <div class="mr-2">
+                    
+                    <span class="badge rounded-pill font-weight-bolder">{{i.date|naturaltime}} </span>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+{% endblock  %}

@@ -57,3 +57,12 @@ class DeliveryAdress(models.Model):
     state = models.CharField(max_length=30)
     zip = models.CharField(max_length=10)
     phone =models.CharField(max_length=10)
+
+class TrackOrder(models.Model):
+    toid = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    description = models.CharField(max_length=250)
+    date = models.DateTimeField()
+
+    def __str__(self):
+        return self.description
