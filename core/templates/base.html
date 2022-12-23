@@ -29,25 +29,25 @@
                 <a class="nav-link {% block home %}{% endblock home %}" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link {% block about %}{% endblock about %}" aria-current="page" href="/about">About</a>
               </li>
-          {% if user.is_authenticated %}
+              {% if user.is_authenticated %}
               
               <li class="nav-item ">
                 <a class="nav-link {% block track %}{% endblock track %}" aria-current="page" href="/trackorder">TrackOrder</a>
               </li>
-            {% endif %}
+              {% endif %}
+              <a class="nav-link {% block about %}{% endblock about %}" aria-current="page" href="/about">About</a>
         </ul>
       
         
         {% if user.is_authenticated %}
-        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;left:0%;padding-left:30%;" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;left:0%;padding-left:30%;" role="search" method="get" action="/search">
+          <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-info ml-2" type="submit">Search</button>
         </form>
         
-        <div class="dropdown ml-4">
-          <a class="btn btn-outline-dark dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown ml-4" style="width: 200px;" >
+          <a class="btn btn-outline-dark dropdown-toggle"  href="#"    role="button" data-bs-toggle="dropdown" aria-expanded="false">
             welcome {{user}}
           </a>
           <ul class="dropdown-menu px-2 ">
@@ -58,7 +58,7 @@
           <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:-2px"></i>
         </a>
         {% else %}
-        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;right:-10%;padding-left:30%;" role="search">
+        <form class="d-flex mx-3 flex-row align-middle" style="position: relative;right:-10%;padding-left:30%;" role="search" action="/search" method="get">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-info ml-2" type="submit">Search</button>
         </form>

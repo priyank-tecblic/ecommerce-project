@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}E-Commerce{% endblock %}
+{% block title %}{{search}}{% endblock %}
 {% block style %}
 .col-md-3 {
     display: inline-block;
@@ -65,8 +65,9 @@ background-color: blue;
 {% load static %}
 
 <div class="container">
+  <h1 class="text-center my-4 font-weight-bold">Your Search Results are</h1>
     {% for product,range,nslides in allproduct %}
-    <h1 class="text-center">{{product.0.pcategory}}</h1>
+    <h2 class="text-center">{{product.0.pcategory}}</h2>
 <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
 
     <ul class="carousel-indicators">

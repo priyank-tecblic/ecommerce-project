@@ -152,3 +152,17 @@ def trackingOrder(request):
         trackorder = TrackOrder.objects.filter(order = order)
         print(trackorder)
     return render(request,'trackorder.html',{'count':count,'trackorder':trackorder})
+
+def search(request):
+    res = request.GET.get("search")
+    allproducts = []
+    catproduct = Product.objects.values('pcategory','pid')
+    product = Product.objects.filter(pname__icontains=res) | Product.objects.filter (pcategory__icontains=res) | Product.objects.filter(psubcategory__icontains=res)| Product.objects.filter(pdesc__icontains=res)
+    cats  = {item['pcategory'] for item in catproduct}
+    for cat in cats:
+        prod = product.filter(pcategory = cat)
+        if prod:
+            n = len(prod)
+            nslides = n//4 + ceil(n/4-n//4)
+            allproducts.append([prod,range(1,nslides),nslides])
+    return render(request,'search.html',{"search":res,"allproduct":allproducts})
