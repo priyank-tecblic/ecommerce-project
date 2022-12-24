@@ -35,5 +35,6 @@ urlpatterns = [
     path('trackorder/',views.trackOrder,name="TrackOrder"),
     path('trackingorder/',views.trackingOrder,name="TrackingOrder"),
     path('search/',views.search,name="search"),
+    path('myorder/',views.myOrder,name="MyOrder"),
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

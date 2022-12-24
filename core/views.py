@@ -166,3 +166,25 @@ def search(request):
             nslides = n//4 + ceil(n/4-n//4)
             allproducts.append([prod,range(1,nslides),nslides])
     return render(request,'search.html',{"search":res,"allproduct":allproducts})
+
+def myOrder(request):
+    if not request.user.is_authenticated:
+        count = 0
+    else:
+        count = Cart.objects.filter(user=request.user).count()
+    orderdetaillist=[]
+    order = Order.objects.filter(user=request.user)[::-1]
+    for i in order:
+        orderdetail = OrderDetail.objects.filter(order=i)
+        orderdetaillist.append(orderdetail)
+    print(orderdetaillist)
+    totalList = []
+    total=0
+    for k,i in zip(range(len(orderdetaillist)),orderdetaillist):
+        total=0
+        for j in i:
+            total = total + j.total
+        totalList.append(total)
+    print(totalList)
+    listt = zip(orderdetaillist,totalList)
+    return render(request,"myorder.html",{'list':listt,'count':count,'totalList':totalList})
