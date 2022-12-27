@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder
+from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from math import ceil
@@ -89,8 +89,12 @@ def cartView(request):
         count = Cart.objects.filter(user=request.user).count()
     cart = Cart.objects.filter(user = request.user)
     alltotal = 0
+    promo = Coupen.objects.filter(user = request.user,applied = True)
     for i in cart:
         alltotal = alltotal + i.total
+    for i in promo:
+        alltotal = alltotal - i.discount
+        return render(request,'cart.html',{'count':count,'cart':cart,'alltotal':alltotal,'promocode':promo[0]})
     return render(request,'cart.html',{'count':count,'cart':cart,'alltotal':alltotal})
 
 def plus(request):
@@ -110,7 +114,6 @@ def emptyCart(request):
     return redirect("/cart")
 
 def placeOrder(request):
-
     return render(request,"email.html")
 
 def deliveryAdress(request):
@@ -133,6 +136,7 @@ def placeOrder(request):
             orderdetail.save()
         cart.delete()
         messages.success(request, f'Your order successfully placed! your order id is {order.oid}')
+        promo = Coupen.objects.filter(user = request.user,applied = True).delete()
         return redirect("/")
 
 def trackOrder(request):
@@ -188,3 +192,16 @@ def myOrder(request):
     print(totalList)
     listt = zip(orderdetaillist,totalList)
     return render(request,"myorder.html",{'list':listt,'count':count,'totalList':totalList})
+
+def addPromoCode(request):
+    promocode = request.POST.get("code")
+    promoDiscount = Coupen.objects.filter(code = promocode)
+    if promoDiscount is not None:
+        promoDiscount.update(applied = True,user = request.user)
+    return redirect("/cart")
+
+def removePromo(request):
+    promoDiscount = Coupen.objects.filter(user = request.user,applied = True)
+    if promoDiscount is not None:
+        promoDiscount.update(applied = False,user = None)
+    return redirect("/cart")

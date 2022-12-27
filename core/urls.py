@@ -36,5 +36,7 @@ urlpatterns = [
     path('trackingorder/',views.trackingOrder,name="TrackingOrder"),
     path('search/',views.search,name="search"),
     path('myorder/',views.myOrder,name="MyOrder"),
+    path('removepromo/',views.removePromo,name="RemovePromo"),
+    path('promocode/',views.addPromoCode,name="PromoCode")
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
