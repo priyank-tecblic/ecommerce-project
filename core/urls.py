@@ -37,6 +37,8 @@ urlpatterns = [
     path('search/',views.search,name="search"),
     path('myorder/',views.myOrder,name="MyOrder"),
     path('removepromo/',views.removePromo,name="RemovePromo"),
-    path('promocode/',views.addPromoCode,name="PromoCode")
+    path('promocode/',views.addPromoCode,name="PromoCode"),
+    path('productview/',views.productView,name="ProductView"),
+    path('review/',views.review,name="Review"),
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

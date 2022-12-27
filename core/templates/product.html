@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.pname }}{% endblock  %}
+
+{% block body %}
+
+{% load static %}
+<style>
+    *{
+     user-select: none;   
+    }
+    .rating {
+
+display: flex;
+flex-direction: row-reverse;
+justify-content: left;
+}
+
+.rating > input{
+ display:none;
+}
+
+.rating > label {
+/* max-width: 5px%; */
+position: relative;
+width: 1.1em;    
+font-size: 2vw;
+color: #FFD700;
+cursor: pointer;
+}
+
+.rating > label::before{
+content: "\2605";
+position: absolute;
+opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+opacity: 0.5 !important;
+}
+
+.rating > input:checked ~ label:before{
+opacity:1;
+}
+
+.rating:hover > input:checked ~ label:before{ 
+opacity: 0.6;
+ }
+</style>
+<div class="container border-bottom border-left border-right" style="margin: auto;vertical-align: center;">
+    <h1 class="text-center font-weight-bolder my-4 border-top">{{ product.pcategory }}</h1>
+    <div class="row">
+
+        <div class="col-6">
+    <img src="/media/{{product.image}}" style="max-width:100%;height:500px;" alt="">
+    
+        </div>
+        <div class="col-6">
+            <h4 class="text-left font-weight-bold mt-3" style="letter-spacing: 2px;">{{ product.pname }}</h4>
+            <span class="my-2" style="letter-spacing: 3px;">{{product.pdesc}}{{product.pdesc}}{{product.pdesc}}{{product.pdesc}}{{product.pdesc}}</span>
+            <p></p>
+            <span class="font-weight-bolder" style="font-size: 20px;">&#8377; {{product.price}}</span>
+            <br>
+            <a href="/addcart?id={{product.pid}}" class="btn btn-primary row my-4 bg-dark" style="margin-left:2px;">Add To Cart</a>
+            <br>
+            <span class="font-weight-bolder">Review your Feedback</span>
+            <form action="/review">
+                <div class="rating">
+                    <input type="text" name="id" value="{{product.pid}}">
+                    <span class="" style="position:relative;top:10px;">
+                        {% if review is not None %}
+                        {{review.star}}
+                        <script>
+                            document.getElementById({{review.star}}).style.opacity = 1;
+                        </script>
+                        {% else %}
+                        0
+                        {% endif %}/5</span>
+                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock  %}

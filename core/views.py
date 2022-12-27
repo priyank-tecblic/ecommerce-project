@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen
+from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen,Review
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from math import ceil
@@ -22,6 +22,19 @@ def home(request):
         allproducts.append([prod,range(1,nslides),nslides])
     # params = {'no_of_slides':nslides,'range':range(1,nslides),'product':products,"hello":"hello"}
     return render(request,'home.html',{"allproduct":allproducts,"count":count})
+
+def productView(request):
+    if not request.user.is_authenticated:
+        count = 0
+    else:
+        count = Cart.objects.filter(user=request.user).count()
+    
+    product = Product.objects.get(pid = request.GET.get("id"))
+    try:
+        rev = Review.objects.get(user=request.user,product=product)
+    except Review.DoesNotExist:
+        rev = None
+    return render(request,'product.html',{'count':count,'product':product,'review':rev})
 
 def signOut(request):
     logout(request)
@@ -158,6 +171,10 @@ def trackingOrder(request):
     return render(request,'trackorder.html',{'count':count,'trackorder':trackorder})
 
 def search(request):
+    if not request.user.is_authenticated:
+        count = 0
+    else:
+        count = Cart.objects.filter(user=request.user).count()
     res = request.GET.get("search")
     allproducts = []
     catproduct = Product.objects.values('pcategory','pid')
@@ -169,7 +186,7 @@ def search(request):
             n = len(prod)
             nslides = n//4 + ceil(n/4-n//4)
             allproducts.append([prod,range(1,nslides),nslides])
-    return render(request,'search.html',{"search":res,"allproduct":allproducts})
+    return render(request,'search.html',{"search":res,"allproduct":allproducts,'count':count})
 
 def myOrder(request):
     if not request.user.is_authenticated:
@@ -205,3 +222,18 @@ def removePromo(request):
     if promoDiscount is not None:
         promoDiscount.update(applied = False,user = None)
     return redirect("/cart")
+
+def review(request):
+    pid = request.GET.get("id")
+    star = request.GET.get("rating")
+    product=Product.objects.get(pid=pid)
+    try:
+        rev = Review.objects.get(user=request.user,product=product)
+    except Review.DoesNotExist:
+        rev = None
+    if rev is not None:
+        Review.objects.filter(user=request.user,product=product).update(star = star)
+    else:
+        rev = Review(star=star,user=request.user,product=product)
+        rev.save()
+    return redirect(f"/productview?id={pid}")

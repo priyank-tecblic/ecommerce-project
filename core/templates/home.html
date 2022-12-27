@@ -66,7 +66,7 @@ background-color: blue;
 
 <div class="container">
     {% for product,range,nslides in allproduct %}
-    <h1 class="text-center">{{product.0.pcategory}}</h1>
+    <h1 class="text-center font-weight-bold mt-2">{{product.0.pcategory}}</h1>
 <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
 
     <ul class="carousel-indicators">
@@ -84,12 +84,12 @@ background-color: blue;
       
 
         {% for i in product%}
-        <div class="col-xs-3 col-sm-3 col-md-3 ">
-          <div class="card" style="width: 18rem;">
-            <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+        <div class=" col-md-3 ">
+          <div class="card " style="width:18rem;">
+            <img src='/media/{{i.image}}' onclick="location.href='/productview?id={{ i.pid }}';" style="margin:auto;align-items: center;cursor: pointer;" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title font-weight-bold">{{i.pname}}</h5>
-              <p class="card-text">{{ i.pdesc|slice:"0:2" }}...</p>
+              <p class="card-text">{{ i.pdesc|slice:"0:15" }}...</p>
               <span class="row"  style="margin-left:2px;"><b>&#8377; {{i.price}}</b></span>
               {% if user.is_authenticated %}
               <a href="/addcart?id={{i.pid}}" class="btn btn-primary row my-2 bg-dark" style="margin-left:2px;">Add To Cart</a>

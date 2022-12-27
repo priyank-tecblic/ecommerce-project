@@ -76,3 +76,8 @@ class Coupen(models.Model):
 
     def __str__(self):
         return self.code
+
+class Review(models.Model):
+    star = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
