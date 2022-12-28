@@ -1,9 +1,10 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen,Review
+from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen,Review,ProductComment
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from math import ceil
+from core.templatetags import extras
 # Create your views here.
 
 def home(request):
@@ -34,7 +35,15 @@ def productView(request):
         rev = Review.objects.get(user=request.user,product=product)
     except Review.DoesNotExist:
         rev = None
-    return render(request,'product.html',{'count':count,'product':product,'review':rev})
+    productcomment = ProductComment.objects.filter(product = product,parent = None)
+    productreply = ProductComment.objects.filter(product = product).exclude(parent=None)
+    replydict = {}
+    for reply in productreply:
+        if reply.parent.cno not in replydict:
+            replydict[reply.parent.cno] = [reply]
+        else:
+            replydict[reply.parent.cno].append(reply)
+    return render(request,'product.html',{'count':count,'product':product,'review':rev,'comments':productcomment,"replydict":replydict})
 
 def signOut(request):
     logout(request)
@@ -237,3 +246,24 @@ def review(request):
         rev = Review(star=star,user=request.user,product=product)
         rev.save()
     return redirect(f"/productview?id={pid}")
+
+def postcomment(request):
+    if request.method == 'POST':
+        comment = request.POST.get("comment")
+        pid = request.POST.get("pid")
+        product=Product.objects.get(pid=pid)
+        productcomment = ProductComment(user = request.user,product = product,comment = comment)
+        productcomment.save()
+        messages.success(request,"Your Comment has been posted successfully")
+        return redirect(f"/productview?id={pid}")
+
+def postreply(request):
+    if request.method == 'POST':
+        reply = request.POST.get("reply")
+        pid = request.POST.get("pid")
+        product=Product.objects.get(pid=pid)
+        comment = ProductComment.objects.get(cno = request.POST.get("cno"))
+        productcomment = ProductComment(user = request.user,product = product,comment = reply,parent = comment)
+        productcomment.save()
+        messages.success(request,"Your Reply has been posted successfully")
+        return redirect(f"/productview?id={pid}")

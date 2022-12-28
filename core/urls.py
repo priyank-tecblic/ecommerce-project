@@ -40,5 +40,7 @@ urlpatterns = [
     path('promocode/',views.addPromoCode,name="PromoCode"),
     path('productview/',views.productView,name="ProductView"),
     path('review/',views.review,name="Review"),
+    path('postcomment/',views.postcomment,name="PostComment"),
+    path('postreply/',views.postreply,name="PostReply"),
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

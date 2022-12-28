@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Create your models here
 class Product(models.Model):
@@ -81,3 +82,11 @@ class Review(models.Model):
     star = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+class ProductComment(models.Model):
+    cno = models.AutoField(primary_key=True)
+    comment = models.TextField()
+    user = models.ForeignKey(User,on_delete = models.CASCADE)
+    product = models.ForeignKey(Product,on_delete = models.CASCADE)
+    parent = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)
+    timestamp = models.DateTimeField(default=now)

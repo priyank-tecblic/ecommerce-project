@@ -8,7 +8,7 @@
 <div class="container">
     <h1 class="text-center mt-3 mb-2 font-weight-bold">Your Past Orders</h1>
     <div class="accordion" id="accordionExample">
-        {% for i,tot in list %}
+            {% for i,tot in list %}
         <div class="card" >
             <a class="accordion-button collapsed pointer"  style="cursor:pointer;user-select: none;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapseOne">
                 <h2 class="card-header text-center" id="headingOne">
@@ -50,4 +50,5 @@
         {% endfor %}
       </div>
 </div>
+
 {% endblock  %}

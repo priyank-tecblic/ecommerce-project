@@ -86,7 +86,11 @@ background-color: blue;
         {% for i in product%}
         <div class=" col-md-3 ">
           <div class="card " style="width:18rem;">
+            {% if user.is_authenticated %}
             <img src='/media/{{i.image}}' onclick="location.href='/productview?id={{ i.pid }}';" style="margin:auto;align-items: center;cursor: pointer;" class="card-img-top" alt="...">
+            {% else %}
+            <img src='/media/{{i.image}}' style="margin:auto;align-items: center;" class="card-img-top" alt="...">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title font-weight-bold">{{i.pname}}</h5>
               <p class="card-text">{{ i.pdesc|slice:"0:15" }}...</p>

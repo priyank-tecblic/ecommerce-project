@@ -4,6 +4,8 @@
 {% block body %}
 
 {% load static %}
+{% load humanize %}
+{% load extras %}
 <style>
     *{
      user-select: none;   
@@ -47,11 +49,11 @@ opacity:1;
 opacity: 0.6;
  }
 </style>
-<div class="container border-bottom border-left border-right" style="margin: auto;vertical-align: center;">
-    <h1 class="text-center font-weight-bolder my-4 border-top">{{ product.pcategory }}</h1>
+<h1 class="text-center font-weight-bolder my-4 ">{{ product.pcategory }}</h1>
+<div class="container border-bottom border-left border-top border-right" style="margin: auto;vertical-align: center;">
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-6 text-center">
     <img src="/media/{{product.image}}" style="max-width:100%;height:500px;" alt="">
     
         </div>
@@ -69,21 +71,94 @@ opacity: 0.6;
                     <input type="text" name="id" value="{{product.pid}}">
                     <span class="" style="position:relative;top:10px;">
                         {% if review is not None %}
-                        {{review.star}}
+                        {{review.star}}/5
+                    </span>
+                    <input type="radio" name="rating" value="5" onChange='submit();' id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" onChange='submit();' id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" onChange='submit();' id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" onChange='submit();' id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" onChange='submit();' id="1"><label for="1">☆</label>
+
                         <script>
-                            document.getElementById({{review.star}}).style.opacity = 1;
+                            const element  = document.getElementById({{review.star}}).checked = true;
                         </script>
                         {% else %}
-                        0
-                        {% endif %}/5</span>
-                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        0/5
+                    </span>
+                    <input type="radio" name="rating" value="5" onChange='submit();' id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" onChange='submit();' id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" onChange='submit();' id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" onChange='submit();' id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" onChange='submit();' id="1"><label for="1">☆</label>
+                        {% endif %}
+                    
                 </div>
             </form>
         </div>
     </div>
+</div>
+<div class="container">
+    <h3 class="font-weight-bold mt-3">Comments ({{comments.count}})</h3>
+    {% if user.is_authenticated %}
+    <form class=""  method ="post" action="/postcomment/">
+
+        {% csrf_token %}
+        <div class="mb-2">
+          <input type="hidden" class="form-control" id="pid" name="pid" value="{{product.pid}}">
+        <label for=""  class="">Post Comment here</label>
+          <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter Comment">
+        </div>
+        <div class="">
+          <button type="submit" class="mt-2 btn btn-secondary mb-3">Comment</button>
+        </div>
+      </form>
+
+    {% endif %}
+      {% for comment in comments %}
+    <div class="row mb-4 ">
+        <div class="col-md-1"><img style="width: 100%; height: 70px;" src="/static/user/pngegg.png" alt="not found"></div>
+        <div class="col-md-11 ">
+            <label class="mr-2 font-weight-bold">{{comment.user.username}}</label> <label class="badge badge-secondary"     >{{comment.timestamp|naturaltime}}</label><br>
+            <span>{{comment.comment}}</span>
+            <div class="reply">
+                    <p>
+                    <button class="btn btn-outline-dark font-weight-bold" style="border-radius: 20px;border: none;" type="button" data-toggle="collapse" data-target="#collapse{{comment.cno}}" aria-expanded="false" aria-controls="collapse{{comment.cno}}">
+                        Reply
+                    </button>
+                  </p>
+                  <div class="collapse" id="collapse{{comment.cno}}">
+                    <div class="card card-body">
+                        <form class=""  method ="post" action="/postreply/">
+
+                            {% csrf_token %}
+                            <div class="mb-2">
+                              <input type="hidden" class="form-control" id="pid" name="pid" value="{{product.pid}}">
+                              <input type="hidden" class="form-control" id="cno" name="cno" value="{{comment.cno}}">
+                            <label for=""  class="">Post a Reply Here</label>
+                              <input type="text" class="form-control" id="comment" name="reply" placeholder="Enter Reply">
+                            </div>
+                            <div class="">
+                              <button type="submit" class="mt-2 btn btn-secondary mb-3">Reply</button>
+                            </div>
+                          </form>
+                    
+                    </div>
+                  </div>
+                  <div class="replies mt-3">
+                        {% for i in replydict|get_val:comment.cno %}
+                        <div class="row mt-3">
+                            <div class="col-md-1"><img style="width: 100%; height: 60px;opacity:0.8" src="/static/user/pngegg.png" alt="not found"></div>
+                            <div class="col-md-11">
+                                <label class="mr-2 font-weight-bold">{{i.user.username}}</label> <label class="badge badge-secondary">{{i.timestamp|naturaltime}}</label><br>
+                                <span>{{i.comment}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock  %}
