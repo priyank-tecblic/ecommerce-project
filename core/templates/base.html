@@ -13,15 +13,18 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
- 
- <style>
-
+      <style>
+        
+        *
+        {
+         user-select:none;
+        }
   {% block style %}
   {% endblock style %}
    </style>
     </head>
   <body style="max-width: 100%;overflow-x: hidden;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
         <div class="container-fluid">
           <a class="navbar-brand font-weight-bolder" href="/"><img src="{% static 'logo/logo-no-background.png' %}" alt="" style="height: 50px;width: 80px;"></a>
 
@@ -53,12 +56,12 @@
             welcome {{user}}
           </a>
           <ul class="dropdown-menu px-2 ">
-            <li><a class="dropdown-item " href="/myorder">MyOrder</a></li>
-            <li><a class="dropdown-item " href="/signout">Logout</a></li>
+            <li><a class="dropdown-item btn-secondary" href="/myorder">MyOrder</a></li>
+            <li><a class="dropdown-item btn-secondary" href="/signout">Logout</a></li>
           </ul>
         </div>
-        <a href="/cart" class="ml-2 btn btn-light" style="position: relative;bottom:2px;right: 0%;height:50px"><span style="position:relative;bottom: 7px;left: 6px;">{{count}}</span>
-          <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:20px"></i>
+        <a href="/cart" class="ml-2 btn btn-light" style="position: relative;bottom:2px;right: 0%;height:50px"><span style="position:relative;bottom: 22px;left: 30px;">{{count}}</span>
+          <i class="fa fa-shopping-cart" style="font-size:36px;color: #000000c2;position:relative ;bottom:-3px"></i>
         </a>
         {% else %}
         <form class="d-flex mx-3 flex-row align-middle" style="position: relative;right:-10%;padding-left:30%;" role="search" action="/search" method="get">
