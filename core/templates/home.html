@@ -31,7 +31,7 @@ body .carousel-control-prev-icon body .carousel-control-next-icon {
 .carousel-control-next
 {
   position:absolute;
-  left:100%;
+  left:102%;
   right:auto;
 }
 body .no-padding {
@@ -67,7 +67,7 @@ background-color: blue;
 <div class="container">
     {% for product,range,nslides in allproduct %}
     <h1 class="text-center font-weight-bold mt-2">{{product.0.pcategory}}</h1>
-<div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+<div id="demo{{forloop.counter}}" class="carousel slide my-3 " data-ride="carousel">
 
     <ul class="carousel-indicators">
       
@@ -84,8 +84,8 @@ background-color: blue;
       
 
         {% for i in product%}
-        <div class=" col-md-3 ">
-          <div class="card " style="width:18rem;">
+        <div class=" col-md-3">
+          <div class="card border " style="width:18rem;">
             {% if user.is_authenticated %}
             <img src='/media/{{i.image}}' onclick="location.href='/productview?id={{ i.pid }}';" style="margin:auto;align-items: center;cursor: pointer;" class="card-img-top" alt="...">
             {% else %}

@@ -1,3 +1,47 @@
 {% extends 'base.html' %}
 {% block title %}AboutUs{% endblock %}
 {% block about %}active{% endblock  %}
+{% block body %}
+<style>
+    h5{
+        color:#6c757d;
+    }
+    card
+    {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<div class="container ">
+    <h1 class="text-center my-4 font-weight-bold text-dark">
+        Who We Are?
+    </h1>
+    <span class="mb-4 text-dark" style="font-size: x-large;text-align: justify; display:block;word-spacing: 5px;">
+        Kharido is guided by four principles: customer obsession rather than competitor focus, passion for invention, commitment to operational excellence, and long-term thinking. Amazon strives to be Earth’s most customer-centric company, Earth’s best employer, and Earth’s safest place to work. Customer reviews, 1-Click shopping, personalized recommendations, Prime, Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career Choice, Fire tablets, Fire TV, Amazon Echo, Alexa, Just Walk Out technology, Amazon Studios, and The Climate Pledge are some of the things pioneered by Amazon.
+    </span>
+    <div class="row mt-4 mx-auto " style="max-width: 100%;">
+        <div class="card  col mr-4 bg-light  rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title ">Leadership Principles</h5>
+              <p class="card-text">Our Leadership Principles are more than inspirational wall hangings. The 16 principles guide our discussions and decisions every day.</p>
+              <a href="#" class="btn btn-outline-dark rounded">Learn more</a>
+            </div>
+          </div>
+          <div class="card col mr-4 bg-dark rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title text-light">Awards and Recognition</h5>
+              <p class="card-text text-light">We are honoured to be recognised for the work we do on behalf of our customers, employees, and communities every day.</p>
+              <a href="#" class="btn  rounded bg-light">Learn more</a>
+            </div>
+          </div>
+          <div class="card col bg-light rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Facts About Kharido</h5>
+              <p class="card-text pb-4">Facts about Amazon, its employees, communities, and customers.</p>
+              <a href="#" class="btn btn-outline-dark mt-4 rounded" style="">Learn more</a>
+            </div>
+          </div>
+
+    </div>
+</div>
+{% endblock  %}
