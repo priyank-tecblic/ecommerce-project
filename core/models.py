@@ -23,7 +23,7 @@ class Product(models.Model):
         super(Product, self).delete(*args, **kwargs)
         # Delete the file after the model
         storage.delete(path)
-
+        
 class Cart(models.Model):
     cid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
