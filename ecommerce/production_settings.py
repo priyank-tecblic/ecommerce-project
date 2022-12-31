@@ -20,7 +20,6 @@ print("in settings....")
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-kl(awh^$6&8go_+ei7zz*=60#y9fco2)nix+@@n*sv@mkmhn96'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
