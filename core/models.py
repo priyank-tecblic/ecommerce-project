@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 # Create your models here
+class CustomUser(models.Model):
+    uid = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    email = models.CharField(max_length=40)
+    password = models.CharField(max_length=100)
+    def __str__(self):
+        return self.first_name + " "+ self.last_name
+
 class Product(models.Model):
     pid = models.AutoField(primary_key=True)
     pname = models.CharField(max_length=50)
