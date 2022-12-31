@@ -21,12 +21,12 @@ print("in settings....")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-kl(awh^$6&8go_+ei7zz*=60#y9fco2)nix+@@n*sv@mkmhn96'
-SECRET_KEY = 'django-insecure-kl(awh^$6&8go_+ei7zz*=60#y9fco2)nix+@@n*sv@mkmh'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1:8000"]
 
 
 # Application definition
@@ -118,6 +118,7 @@ AUTHENTICATION_BACKENDS = [
 #                            }
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
 AUTH_PASSWORD_VALIDATORS = [
