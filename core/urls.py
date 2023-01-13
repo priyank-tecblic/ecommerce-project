@@ -42,5 +42,6 @@ urlpatterns = [
     path('review/',views.review,name="Review"),
     path('postcomment/',views.postcomment,name="PostComment"),
     path('postreply/',views.postreply,name="PostReply"),
+    path('changefirstname/',views.changeName,name="chnages from google")
 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

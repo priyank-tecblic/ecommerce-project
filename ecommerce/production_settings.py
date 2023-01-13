@@ -27,7 +27,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1:8000"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_seed'
 ]
+AUTH_USER_MODEL = 'core.MyUser'   
 
 SITE_ID = 1
     
@@ -87,12 +87,8 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
       'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'mydatabase',
-       'USER': 'priyank',
-       'PASSWORD': '123',
-       'HOST': 'localhost',
-       'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'mysqlite.db'),
    }
 }
 
@@ -158,5 +154,7 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = ('email')
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/changefirstname/"
