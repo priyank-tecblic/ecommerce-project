@@ -26,8 +26,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,9 +45,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_seed'
 ]
+AUTH_USER_MODEL = 'core.MyUser'
 
 SITE_ID = 1
-    
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,17 +83,24 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#       'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'mydatabase',
+#        'USER': 'priyank',
+#        'PASSWORD': '123',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+# }
+
 DATABASES = {
       'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'mydatabase',
-       'USER': 'priyank',
-       'PASSWORD': '123',
-       'HOST': 'localhost',
-       'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'mysqlite.db'),
+
    }
 }
-
 AUTHENTICATION_BACKENDS = [
     
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -158,4 +163,13 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/"
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_NAME_REQUIRED = True
+
+LOGIN_REDIRECT_URL = "/changefirstname"

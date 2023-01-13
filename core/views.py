@@ -1,12 +1,22 @@
 from django.shortcuts import render,HttpResponse,redirect
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from .models import MyUser as User
 from .models import Product,Cart,OrderDetail,Order,DeliveryAdress,TrackOrder,Coupen,Review,ProductComment
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from math import ceil
 from core.templatetags import extras
-# Create your views here.
+import json
 
+# Create your views here.
+def changeName(request):
+    googleuser= SocialAccount.objects.last()
+    customuser = User.objects.get(email=googleuser)
+    customuser.firstname = googleuser.extra_data['given_name']
+    customuser.lastname = googleuser.extra_data['family_name']
+    customuser.save()
+    return redirect("/")
 def home(request):
     if not request.user.is_authenticated:
         count = 0
@@ -68,12 +78,9 @@ def saveUser(request):
     if request.method == 'POST':
         first_name = request.POST.get("fname")
         last_name = request.POST.get("lname")
-        username = request.POST.get("uname")
         password = request.POST.get("password")
         email = request.POST.get("email")
-        user = User.objects.create_user(username=username,email=email,password=password)
-        user.first_name = first_name
-        user.last_name = last_name
+        user = User.objects.create_user(email=email,password=password,firstname=first_name,lastname=last_name)
         user.save()
         messages.success(request, 'your account create successfully! click on Login')
         return redirect("/")
@@ -81,9 +88,9 @@ def saveUser(request):
 
 def checkUser(request):
     if request.method == 'POST':
-        username = request.POST.get("uname")
+        email = request.POST.get("email")
         password = request.POST.get("password")
-        user = authenticate(username=username,password=password)
+        user = authenticate(email=email,password=password)
         if user is not None:
             login(request,user)
             messages.success(request, 'You logined successfully!')
